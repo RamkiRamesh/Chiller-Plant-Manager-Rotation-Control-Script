@@ -1,0 +1,153 @@
+/* Auto-generated ProgramImpl Code */
+
+import java.util.*;              /* java Predefined*/
+import javax.baja.nre.util.*;    /* nre Predefined*/
+import javax.baja.sys.*;         /* baja Predefined*/
+import javax.baja.status.*;      /* baja Predefined*/
+import javax.baja.util.*;        /* baja Predefined*/
+import com.tridium.program.*;    /* program-rt Predefined*/
+
+public class ProgramImpl
+  extends com.tridium.program.ProgramBase
+{
+
+////////////////////////////////////////////////////////////////
+// Getters
+////////////////////////////////////////////////////////////////
+
+  public BNameMap getDisplayNames() { return (BNameMap)get("displayNames"); }
+  public BStatusNumeric getSEQ_IN() { return (BStatusNumeric)get("SEQ_IN"); }
+  public BStatusNumeric getLEAD_OUT() { return (BStatusNumeric)get("LEAD_OUT"); }
+  public BStatusNumeric getLAG1_OUT() { return (BStatusNumeric)get("LAG1_OUT"); }
+  public BStatusNumeric getCH1_RUN_HOURS() { return (BStatusNumeric)get("CH1_RUN_HOURS"); }
+  public BStatusNumeric getCH2_RUN_HOURS() { return (BStatusNumeric)get("CH2_RUN_HOURS"); }
+  public BStatusBoolean getEN_RUN_HOUR() { return (BStatusBoolean)get("EN_RUN_HOUR"); }
+
+////////////////////////////////////////////////////////////////
+// Setters
+////////////////////////////////////////////////////////////////
+
+  public void setDisplayNames(javax.baja.util.BNameMap v) { set("displayNames", v); }
+  public void setSEQ_IN(javax.baja.status.BStatusNumeric v) { set("SEQ_IN", v); }
+  public void setLEAD_OUT(javax.baja.status.BStatusNumeric v) { set("LEAD_OUT", v); }
+  public void setLAG1_OUT(javax.baja.status.BStatusNumeric v) { set("LAG1_OUT", v); }
+  public void setCH1_RUN_HOURS(javax.baja.status.BStatusNumeric v) { set("CH1_RUN_HOURS", v); }
+  public void setCH2_RUN_HOURS(javax.baja.status.BStatusNumeric v) { set("CH2_RUN_HOURS", v); }
+  public void setEN_RUN_HOUR(javax.baja.status.BStatusBoolean v) { set("EN_RUN_HOUR", v); }
+
+////////////////////////////////////////////////////////////////
+// Program Source
+////////////////////////////////////////////////////////////////
+
+  public void onStart() throws Exception
+  {
+    // start up code here
+  }
+  
+  public void onExecute() throws Exception
+  {
+  ///////////////////////////////////////////////*Defing Inputs and Outputs*///////////////////////////// 
+    BStatusNumeric SEQ_IN = getSEQ_IN();
+    BStatusBoolean EN_RUN_HOUR = getEN_RUN_HOUR();
+    BStatusNumeric CH1_RUN_HOURS = getCH1_RUN_HOURS();
+    BStatusNumeric CH2_RUN_HOURS = getCH2_RUN_HOURS();
+    BStatusNumeric LEAD_OUT = getLEAD_OUT();
+    BStatusNumeric LAG1_OUT = getLAG1_OUT();
+  ///////////////////////////////////////////////**Defing Inputs and Outputs**///////////////////////////// 
+  //////////////////////////////////////////////*If rotation not based on Run Hours*////////////////////////
+    if (EN_RUN_HOUR.getValue()==false)
+        {
+          if (SEQ_IN.getValue()==0)
+            {
+              LEAD_OUT.setValue( 1 );
+              LAG1_OUT.setValue( 2 );
+            } 
+          if (SEQ_IN.getValue()==1)
+            {
+              LEAD_OUT.setValue( 2 );
+              LAG1_OUT.setValue( 1 );
+            }
+            
+          }
+  //////////////////////////////////////////////**If rotation not based on Run Hours**////////////////////////
+  //////////////////////////////////////////////*If rotation based on Run Hours*/////////////////////////////   
+     if (EN_RUN_HOUR.getValue()==true)
+          { 
+          //////////////////////////////////////////////Raw Run Hours///////////////////////////
+            double CH1=CH1_RUN_HOURS.getValue();
+            double CH2=CH2_RUN_HOURS.getValue();
+          //////////////////////////////////////////////Raw Run Hours///////////////////////////
+          /////////////////////////////////////////////////addition if any equal run hours//////////////////////////////////
+            double[] RUN_ARRAY=new double[]{CH1,CH2};
+            int k=0;
+            while(k<0)
+                {
+                  for (int l = 0; l < 2; l++)
+                      {
+                      for (int n = 0; n < 2; n++)
+                        {
+                         if (l==n)
+                            {  
+                              //No ACtion
+                              }
+                          else
+                            {
+                              if (RUN_ARRAY[l]==RUN_ARRAY[n])
+                                {
+                                for (int m=0; m<2; m++)
+                                  {
+                                    RUN_ARRAY[m]=RUN_ARRAY[m]+((m+1)*0.000000001);
+                                    }
+                                  l=0;
+                                 }
+                                else
+                                  {
+                                  k++;
+                                  }
+                                }
+                          }
+                      } 
+                   
+                    }
+  CH1=RUN_ARRAY[0];
+  CH2=RUN_ARRAY[1];
+  /////////////////////////////////////////////////addition if any equal run hours//////////////////////////////////
+  ////////////GROUP1////////////////////////////////////////////////////////////////////////////////
+  double[] SHORT_ARRAY_G1=new double[]{CH1,CH2};
+  ////////////GROUP1////////////////////////////////////////////////////////////////////////////////
+  Arrays.sort(SHORT_ARRAY_G1);
+  ////////////GROUP2////////////////////////////////////////////////////////////////////////////////
+  //double[] SHORT_ARRAY_G2=new double[]{CH4,CH5,CH6,CH7};
+  //Arrays.sort(SHORT_ARRAY_G2);
+  ////////////GROUP2////////////////////////////////////////////////////////////////////////////////
+  double[] RUN_ARRAY1=new double[]{CH1,CH2};
+  int[] order=new int[]{1,2};
+  /////////////////////////////////////////GROUP1////////////////////////////////////////////////////////
+  for (int i = 0; i < 2; i++)
+            { 
+              for (int j = 0; j < 2; j++)
+                {         
+                  if (SHORT_ARRAY_G1[i]==RUN_ARRAY1[j])
+                  {
+                    order[i]=j+1;
+                    j=2;
+                  }
+                 }
+            }
+              LEAD_OUT.setValue( order[0] );
+              LAG1_OUT.setValue( order[1] );
+  //**Final output    
+  //Dummy
+  //Dummy    
+          }
+            
+     
+     
+  }
+  
+  public void onStop() throws Exception
+  {
+    // shutdown code here
+  }
+  
+}
