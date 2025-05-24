@@ -1,157 +1,211 @@
-public void onStart() throws Exception
-{
-  // start up code here
-}
+/* Auto-generated ProgramImpl Code */
 
-public void onExecute() throws Exception
+import java.util.*;              /* java Predefined*/
+import javax.baja.nre.util.*;    /* nre Predefined*/
+import javax.baja.sys.*;         /* baja Predefined*/
+import javax.baja.status.*;      /* baja Predefined*/
+import javax.baja.util.*;        /* baja Predefined*/
+import com.tridium.program.*;    /* program-rt Predefined*/
+
+public class ProgramImpl
+  extends com.tridium.program.ProgramBase
 {
-///////////////////////////////////////////////*Defing Inputs and Outputs*///////////////////////////// 
-  BStatusNumeric SEQ_IN = getSEQ_IN();
-  BStatusBoolean EN_RUN_HOUR = getEN_RUN_HOUR();
-  BStatusNumeric PUMP1_RUN_HOURS = getPUMP1_RUN_HOURS();
-  BStatusNumeric PUMP2_RUN_HOURS = getPUMP2_RUN_HOURS();
-  BStatusNumeric PUMP3_RUN_HOURS = getPUMP3_RUN_HOURS();
-  BStatusNumeric PUMP4_RUN_HOURS = getPUMP4_RUN_HOURS();
-  BStatusNumeric PUMP5_RUN_HOURS = getPUMP5_RUN_HOURS();
-  BStatusNumeric LEAD_OUT = getLEAD_OUT();
-  BStatusNumeric LAG1_OUT = getLAG1_OUT();
-  BStatusNumeric LAG2_OUT = getLAG2_OUT();
-  BStatusNumeric LAG3_OUT = getLAG3_OUT();
-  BStatusNumeric LAG4_OUT = getLAG4_OUT();
-///////////////////////////////////////////////**Defing Inputs and Outputs**///////////////////////////// 
-//////////////////////////////////////////////*If rotation not based on Run Hours*////////////////////////
-  if (EN_RUN_HOUR.getValue()==false)
-      {
-        if (SEQ_IN.getValue()==0)
-          {
-            LEAD_OUT.setValue( 1 );
-            LAG1_OUT.setValue( 3 );
-            LAG2_OUT.setValue( 5 );
-            LAG3_OUT.setValue( 2 );
-            LAG4_OUT.setValue( 4 );
-          } 
-        if (SEQ_IN.getValue()==1)
-          {
-            LEAD_OUT.setValue( 3 );
-            LAG1_OUT.setValue( 5 );
-            LAG2_OUT.setValue( 1 );
-            LAG3_OUT.setValue( 4 );
-            LAG4_OUT.setValue( 2 );
-          } 
-        if (SEQ_IN.getValue()==2)
-          {
-            LEAD_OUT.setValue( 5 );
-            LAG1_OUT.setValue( 1 );
-            LAG2_OUT.setValue( 3 );
-            LAG3_OUT.setValue( 2 );
-            LAG4_OUT.setValue( 4 );
+
+////////////////////////////////////////////////////////////////
+// Getters
+////////////////////////////////////////////////////////////////
+
+  public BNameMap getDisplayNames() { return (BNameMap)get("displayNames"); }
+  public BStatusNumeric getSEQ_IN() { return (BStatusNumeric)get("SEQ_IN"); }
+  public BStatusNumeric getLEAD_OUT() { return (BStatusNumeric)get("LEAD_OUT"); }
+  public BStatusNumeric getLAG1_OUT() { return (BStatusNumeric)get("LAG1_OUT"); }
+  public BStatusNumeric getLAG2_OUT() { return (BStatusNumeric)get("LAG2_OUT"); }
+  public BStatusNumeric getLAG3_OUT() { return (BStatusNumeric)get("LAG3_OUT"); }
+  public BStatusNumeric getLAG4_OUT() { return (BStatusNumeric)get("LAG4_OUT"); }
+  public BStatusNumeric getPUMP1_RUN_HOURS() { return (BStatusNumeric)get("PUMP1_RUN_HOURS"); }
+  public BStatusNumeric getPUMP2_RUN_HOURS() { return (BStatusNumeric)get("PUMP2_RUN_HOURS"); }
+  public BStatusNumeric getPUMP3_RUN_HOURS() { return (BStatusNumeric)get("PUMP3_RUN_HOURS"); }
+  public BStatusNumeric getPUMP4_RUN_HOURS() { return (BStatusNumeric)get("PUMP4_RUN_HOURS"); }
+  public BStatusNumeric getPUMP5_RUN_HOURS() { return (BStatusNumeric)get("PUMP5_RUN_HOURS"); }
+  public BStatusBoolean getEN_RUN_HOUR() { return (BStatusBoolean)get("EN_RUN_HOUR"); }
+
+////////////////////////////////////////////////////////////////
+// Setters
+////////////////////////////////////////////////////////////////
+
+  public void setDisplayNames(javax.baja.util.BNameMap v) { set("displayNames", v); }
+  public void setSEQ_IN(javax.baja.status.BStatusNumeric v) { set("SEQ_IN", v); }
+  public void setLEAD_OUT(javax.baja.status.BStatusNumeric v) { set("LEAD_OUT", v); }
+  public void setLAG1_OUT(javax.baja.status.BStatusNumeric v) { set("LAG1_OUT", v); }
+  public void setLAG2_OUT(javax.baja.status.BStatusNumeric v) { set("LAG2_OUT", v); }
+  public void setLAG3_OUT(javax.baja.status.BStatusNumeric v) { set("LAG3_OUT", v); }
+  public void setLAG4_OUT(javax.baja.status.BStatusNumeric v) { set("LAG4_OUT", v); }
+  public void setPUMP1_RUN_HOURS(javax.baja.status.BStatusNumeric v) { set("PUMP1_RUN_HOURS", v); }
+  public void setPUMP2_RUN_HOURS(javax.baja.status.BStatusNumeric v) { set("PUMP2_RUN_HOURS", v); }
+  public void setPUMP3_RUN_HOURS(javax.baja.status.BStatusNumeric v) { set("PUMP3_RUN_HOURS", v); }
+  public void setPUMP4_RUN_HOURS(javax.baja.status.BStatusNumeric v) { set("PUMP4_RUN_HOURS", v); }
+  public void setPUMP5_RUN_HOURS(javax.baja.status.BStatusNumeric v) { set("PUMP5_RUN_HOURS", v); }
+  public void setEN_RUN_HOUR(javax.baja.status.BStatusBoolean v) { set("EN_RUN_HOUR", v); }
+
+////////////////////////////////////////////////////////////////
+// Program Source
+////////////////////////////////////////////////////////////////
+
+  public void onStart() throws Exception
+  {
+    // start up code here
+  }
+  
+  public void onExecute() throws Exception
+  {
+  ///////////////////////////////////////////////*Defing Inputs and Outputs*///////////////////////////// 
+    BStatusNumeric SEQ_IN = getSEQ_IN();
+    BStatusBoolean EN_RUN_HOUR = getEN_RUN_HOUR();
+    BStatusNumeric PUMP1_RUN_HOURS = getPUMP1_RUN_HOURS();
+    BStatusNumeric PUMP2_RUN_HOURS = getPUMP2_RUN_HOURS();
+    BStatusNumeric PUMP3_RUN_HOURS = getPUMP3_RUN_HOURS();
+    BStatusNumeric PUMP4_RUN_HOURS = getPUMP4_RUN_HOURS();
+    BStatusNumeric PUMP5_RUN_HOURS = getPUMP5_RUN_HOURS();
+    BStatusNumeric LEAD_OUT = getLEAD_OUT();
+    BStatusNumeric LAG1_OUT = getLAG1_OUT();
+    BStatusNumeric LAG2_OUT = getLAG2_OUT();
+    BStatusNumeric LAG3_OUT = getLAG3_OUT();
+    BStatusNumeric LAG4_OUT = getLAG4_OUT();
+  ///////////////////////////////////////////////**Defing Inputs and Outputs**///////////////////////////// 
+  //////////////////////////////////////////////*If rotation not based on Run Hours*////////////////////////
+    if (EN_RUN_HOUR.getValue()==false)
+        {
+          if (SEQ_IN.getValue()==0)
+            {
+              LEAD_OUT.setValue( 1 );
+              LAG1_OUT.setValue( 3 );
+              LAG2_OUT.setValue( 5 );
+              LAG3_OUT.setValue( 2 );
+              LAG4_OUT.setValue( 4 );
+            } 
+          if (SEQ_IN.getValue()==1)
+            {
+              LEAD_OUT.setValue( 3 );
+              LAG1_OUT.setValue( 5 );
+              LAG2_OUT.setValue( 1 );
+              LAG3_OUT.setValue( 4 );
+              LAG4_OUT.setValue( 2 );
+            } 
+          if (SEQ_IN.getValue()==2)
+            {
+              LEAD_OUT.setValue( 5 );
+              LAG1_OUT.setValue( 1 );
+              LAG2_OUT.setValue( 3 );
+              LAG3_OUT.setValue( 2 );
+              LAG4_OUT.setValue( 4 );
+            }
           }
-        }
-//////////////////////////////////////////////**If rotation not based on Run Hours**////////////////////////
-//////////////////////////////////////////////*If rotation based on Run Hours*/////////////////////////////   
-   if (EN_RUN_HOUR.getValue()==true)
-        { 
-        //////////////////////////////////////////////Raw Run Hours///////////////////////////
-          double PUMP1=PUMP1_RUN_HOURS.getValue();
-          double PUMP2=PUMP2_RUN_HOURS.getValue();
-          double PUMP3=PUMP3_RUN_HOURS.getValue();
-          double PUMP4=PUMP4_RUN_HOURS.getValue();
-          double PUMP5=PUMP5_RUN_HOURS.getValue();
-        //////////////////////////////////////////////Raw Run Hours///////////////////////////
-        /////////////////////////////////////////////////addition if any equal run hours//////////////////////////////////
-          double[] RUN_ARRAY=new double[]{PUMP1,PUMP2,PUMP3,PUMP4,PUMP5};
-          int k=0;
-          while(k<1)
-              {
-                for (int l = 0; l < 4; l++)    
-                    {
-                    for (int n = 0; n < 4; n++)
+  //////////////////////////////////////////////**If rotation not based on Run Hours**////////////////////////
+  //////////////////////////////////////////////*If rotation based on Run Hours*/////////////////////////////   
+     if (EN_RUN_HOUR.getValue()==true)
+          { 
+          //////////////////////////////////////////////Raw Run Hours///////////////////////////
+            double PUMP1=PUMP1_RUN_HOURS.getValue();
+            double PUMP2=PUMP2_RUN_HOURS.getValue();
+            double PUMP3=PUMP3_RUN_HOURS.getValue();
+            double PUMP4=PUMP4_RUN_HOURS.getValue();
+            double PUMP5=PUMP5_RUN_HOURS.getValue();
+          //////////////////////////////////////////////Raw Run Hours///////////////////////////
+          /////////////////////////////////////////////////addition if any equal run hours//////////////////////////////////
+            double[] RUN_ARRAY=new double[]{PUMP1,PUMP2,PUMP3,PUMP4,PUMP5};
+            int k=0;
+            while(k<1)
+                {
+                  for (int l = 0; l < 4; l++)    
                       {
-                       if (l==n)
-                          {  
-                            //No ACtion
-                            }
-                        else
-                          {
-                            if (RUN_ARRAY[l]==RUN_ARRAY[n])
-                              {
-                              for (int m=0; m<5; m++)
-                                {
-                                  RUN_ARRAY[m]=RUN_ARRAY[m]+((m+1)*0.000000001);
-                                  }
-                                l=0;
-                               }
-                              else
-                                {
-                                k++;
-                                }
+                      for (int n = 0; n < 4; n++)
+                        {
+                         if (l==n)
+                            {  
+                              //No ACtion
                               }
-                        }
-                    } 
-                 
+                          else
+                            {
+                              if (RUN_ARRAY[l]==RUN_ARRAY[n])
+                                {
+                                for (int m=0; m<5; m++)
+                                  {
+                                    RUN_ARRAY[m]=RUN_ARRAY[m]+((m+1)*0.000000001);
+                                    }
+                                  l=0;
+                                 }
+                                else
+                                  {
+                                  k++;
+                                  }
+                                }
+                          }
+                      } 
+                   
+                    }
+  PUMP1=RUN_ARRAY[0];
+  PUMP2=RUN_ARRAY[1];
+  PUMP3=RUN_ARRAY[2];
+  PUMP4=RUN_ARRAY[3];
+  PUMP5=RUN_ARRAY[4];
+  /////////////////////////////////////////////////addition if any equal run hours//////////////////////////////////
+  ////////////GROUP1////////////////////////////////////////////////////////////////////////////////
+  double[] SHORT_ARRAY_G1=new double[]{PUMP1,PUMP3,PUMP5};
+  ////////////GROUP1////////////////////////////////////////////////////////////////////////////////
+  Arrays.sort(SHORT_ARRAY_G1);
+  ////////////GROUP2////////////////////////////////////////////////////////////////////////////////
+  double[] SHORT_ARRAY_G2=new double[]{PUMP2,PUMP4};
+  Arrays.sort(SHORT_ARRAY_G2);
+  ////////////GROUP2////////////////////////////////////////////////////////////////////////////////
+  double[] RUN_ARRAY1=new double[]{PUMP1,PUMP2,PUMP3,PUMP4,PUMP5};
+  int[] order=new int[]{1,2,3,4,5};
+  /////////////////////////////////////////GROUP1////////////////////////////////////////////////////////
+  for (int i = 0; i < 3; i++)
+            { 
+              for (int j = 0; j < 7; j++)
+                {         
+                  if (SHORT_ARRAY_G1[i]==RUN_ARRAY1[j])
+                  {
+                    order[i]=j+1;
+                    j=7;  
                   }
-PUMP1=RUN_ARRAY[0];
-PUMP2=RUN_ARRAY[1];
-PUMP3=RUN_ARRAY[2];
-PUMP4=RUN_ARRAY[3];
-PUMP5=RUN_ARRAY[4];
-/////////////////////////////////////////////////addition if any equal run hours//////////////////////////////////
-////////////GROUP1////////////////////////////////////////////////////////////////////////////////
-double[] SHORT_ARRAY_G1=new double[]{PUMP1,PUMP3,PUMP5};
-////////////GROUP1////////////////////////////////////////////////////////////////////////////////
-Arrays.sort(SHORT_ARRAY_G1);
-////////////GROUP2////////////////////////////////////////////////////////////////////////////////
-double[] SHORT_ARRAY_G2=new double[]{PUMP2,PUMP4};
-Arrays.sort(SHORT_ARRAY_G2);
-////////////GROUP2////////////////////////////////////////////////////////////////////////////////
-double[] RUN_ARRAY1=new double[]{PUMP1,PUMP2,PUMP3,PUMP4,PUMP5};
-int[] order=new int[]{1,2,3,4,5};
-/////////////////////////////////////////GROUP1////////////////////////////////////////////////////////
-for (int i = 0; i < 3; i++)
-          { 
-            for (int j = 0; j < 7; j++)
-              {         
-                if (SHORT_ARRAY_G1[i]==RUN_ARRAY1[j])
-                {
-                  order[i]=j+1;
-                  j=7;  
-                }
-               }
+                 }
+            }
+   for (int i = 0; i < 2; i++)
+            { 
+              for (int j = 0; j < 7; j++)
+                {         
+                  if (SHORT_ARRAY_G2[i]==RUN_ARRAY1[j])
+                  {
+                    order[i+3]=j+1;
+                    j=7;
+                  }
+                 }
+            }
+  
+  ///////////////////////////////////////////GROUP1////////////////////////////////////////////////////////
+  ///////////////////////////////////////////GROUP2///////////////////////////////////////////////////////
+  
+  
+  ///////////////////////////////////////////GROUP2////////////////////////////////////////////////////////
+  //////////////////////////////////////////////**If rotation based on Run Hours**///////////////////////////    
+  //*Final output
+              LEAD_OUT.setValue( order[0] );
+              LAG1_OUT.setValue( order[1] );
+              LAG2_OUT.setValue( order[2] );
+              LAG3_OUT.setValue( order[3] );
+              LAG4_OUT.setValue( order[4] );
+  //**Final output    
+  //Dummy
+  //Dummy    
           }
- for (int i = 0; i < 2; i++)
-          { 
-            for (int j = 0; j < 7; j++)
-              {         
-                if (SHORT_ARRAY_G2[i]==RUN_ARRAY1[j])
-                {
-                  order[i+3]=j+1;
-                  j=7;
-                }
-               }
-          }
-
-///////////////////////////////////////////GROUP1////////////////////////////////////////////////////////
-///////////////////////////////////////////GROUP2///////////////////////////////////////////////////////
-
-
-///////////////////////////////////////////GROUP2////////////////////////////////////////////////////////
-//////////////////////////////////////////////**If rotation based on Run Hours**///////////////////////////    
-//*Final output
-            LEAD_OUT.setValue( order[0] );
-            LAG1_OUT.setValue( order[1] );
-            LAG2_OUT.setValue( order[2] );
-            LAG3_OUT.setValue( order[3] );
-            LAG4_OUT.setValue( order[4] );
-//**Final output    
-//Dummy
-//Dummy    
-        }
-          
-
+            
+  
+  }
+  
+  public void onStop() throws Exception
+  {
+    // shutdown code here
+  }
+  
 }
-
-public void onStop() throws Exception
-{
-  // shutdown code here
-}
-
