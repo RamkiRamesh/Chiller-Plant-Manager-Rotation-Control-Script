@@ -1,0 +1,157 @@
+public void onStart() throws Exception
+{
+  // start up code here
+}
+
+public void onExecute() throws Exception
+{
+///////////////////////////////////////////////*Defing Inputs and Outputs*///////////////////////////// 
+  BStatusNumeric SEQ_IN = getSEQ_IN();
+  BStatusBoolean EN_RUN_HOUR = getEN_RUN_HOUR();
+  BStatusNumeric PUMP1_RUN_HOURS = getPUMP1_RUN_HOURS();
+  BStatusNumeric PUMP2_RUN_HOURS = getPUMP2_RUN_HOURS();
+  BStatusNumeric PUMP3_RUN_HOURS = getPUMP3_RUN_HOURS();
+  BStatusNumeric PUMP4_RUN_HOURS = getPUMP4_RUN_HOURS();
+  BStatusNumeric PUMP5_RUN_HOURS = getPUMP5_RUN_HOURS();
+  BStatusNumeric LEAD_OUT = getLEAD_OUT();
+  BStatusNumeric LAG1_OUT = getLAG1_OUT();
+  BStatusNumeric LAG2_OUT = getLAG2_OUT();
+  BStatusNumeric LAG3_OUT = getLAG3_OUT();
+  BStatusNumeric LAG4_OUT = getLAG4_OUT();
+///////////////////////////////////////////////**Defing Inputs and Outputs**///////////////////////////// 
+//////////////////////////////////////////////*If rotation not based on Run Hours*////////////////////////
+  if (EN_RUN_HOUR.getValue()==false)
+      {
+        if (SEQ_IN.getValue()==0)
+          {
+            LEAD_OUT.setValue( 1 );
+            LAG1_OUT.setValue( 3 );
+            LAG2_OUT.setValue( 5 );
+            LAG3_OUT.setValue( 2 );
+            LAG4_OUT.setValue( 4 );
+          } 
+        if (SEQ_IN.getValue()==1)
+          {
+            LEAD_OUT.setValue( 3 );
+            LAG1_OUT.setValue( 5 );
+            LAG2_OUT.setValue( 1 );
+            LAG3_OUT.setValue( 4 );
+            LAG4_OUT.setValue( 2 );
+          } 
+        if (SEQ_IN.getValue()==2)
+          {
+            LEAD_OUT.setValue( 5 );
+            LAG1_OUT.setValue( 1 );
+            LAG2_OUT.setValue( 3 );
+            LAG3_OUT.setValue( 2 );
+            LAG4_OUT.setValue( 4 );
+          }
+        }
+//////////////////////////////////////////////**If rotation not based on Run Hours**////////////////////////
+//////////////////////////////////////////////*If rotation based on Run Hours*/////////////////////////////   
+   if (EN_RUN_HOUR.getValue()==true)
+        { 
+        //////////////////////////////////////////////Raw Run Hours///////////////////////////
+          double PUMP1=PUMP1_RUN_HOURS.getValue();
+          double PUMP2=PUMP2_RUN_HOURS.getValue();
+          double PUMP3=PUMP3_RUN_HOURS.getValue();
+          double PUMP4=PUMP4_RUN_HOURS.getValue();
+          double PUMP5=PUMP5_RUN_HOURS.getValue();
+        //////////////////////////////////////////////Raw Run Hours///////////////////////////
+        /////////////////////////////////////////////////addition if any equal run hours//////////////////////////////////
+          double[] RUN_ARRAY=new double[]{PUMP1,PUMP2,PUMP3,PUMP4,PUMP5};
+          int k=0;
+          while(k<1)
+              {
+                for (int l = 0; l < 4; l++)    
+                    {
+                    for (int n = 0; n < 4; n++)
+                      {
+                       if (l==n)
+                          {  
+                            //No ACtion
+                            }
+                        else
+                          {
+                            if (RUN_ARRAY[l]==RUN_ARRAY[n])
+                              {
+                              for (int m=0; m<5; m++)
+                                {
+                                  RUN_ARRAY[m]=RUN_ARRAY[m]+((m+1)*0.000000001);
+                                  }
+                                l=0;
+                               }
+                              else
+                                {
+                                k++;
+                                }
+                              }
+                        }
+                    } 
+                 
+                  }
+PUMP1=RUN_ARRAY[0];
+PUMP2=RUN_ARRAY[1];
+PUMP3=RUN_ARRAY[2];
+PUMP4=RUN_ARRAY[3];
+PUMP5=RUN_ARRAY[4];
+/////////////////////////////////////////////////addition if any equal run hours//////////////////////////////////
+////////////GROUP1////////////////////////////////////////////////////////////////////////////////
+double[] SHORT_ARRAY_G1=new double[]{PUMP1,PUMP3,PUMP5};
+////////////GROUP1////////////////////////////////////////////////////////////////////////////////
+Arrays.sort(SHORT_ARRAY_G1);
+////////////GROUP2////////////////////////////////////////////////////////////////////////////////
+double[] SHORT_ARRAY_G2=new double[]{PUMP2,PUMP4};
+Arrays.sort(SHORT_ARRAY_G2);
+////////////GROUP2////////////////////////////////////////////////////////////////////////////////
+double[] RUN_ARRAY1=new double[]{PUMP1,PUMP2,PUMP3,PUMP4,PUMP5};
+int[] order=new int[]{1,2,3,4,5};
+/////////////////////////////////////////GROUP1////////////////////////////////////////////////////////
+for (int i = 0; i < 3; i++)
+          { 
+            for (int j = 0; j < 7; j++)
+              {         
+                if (SHORT_ARRAY_G1[i]==RUN_ARRAY1[j])
+                {
+                  order[i]=j+1;
+                  j=7;  
+                }
+               }
+          }
+ for (int i = 0; i < 2; i++)
+          { 
+            for (int j = 0; j < 7; j++)
+              {         
+                if (SHORT_ARRAY_G2[i]==RUN_ARRAY1[j])
+                {
+                  order[i+3]=j+1;
+                  j=7;
+                }
+               }
+          }
+
+///////////////////////////////////////////GROUP1////////////////////////////////////////////////////////
+///////////////////////////////////////////GROUP2///////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////GROUP2////////////////////////////////////////////////////////
+//////////////////////////////////////////////**If rotation based on Run Hours**///////////////////////////    
+//*Final output
+            LEAD_OUT.setValue( order[0] );
+            LAG1_OUT.setValue( order[1] );
+            LAG2_OUT.setValue( order[2] );
+            LAG3_OUT.setValue( order[3] );
+            LAG4_OUT.setValue( order[4] );
+//**Final output    
+//Dummy
+//Dummy    
+        }
+          
+
+}
+
+public void onStop() throws Exception
+{
+  // shutdown code here
+}
+
