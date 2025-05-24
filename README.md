@@ -1,6 +1,6 @@
 # Chiller-Plant-Manager-Rotation-Control-Script
 Flexible Chiller Plant Rotation
-In Chiller Plant Manager Rotation control of the Chillers and Pumps are very important topic,
+In Chiller Plant Manager, Rotation control of the Chillers and Pumps are very important topic,
 I used to work with Chiller plant configuration with diffrent Brand and Model of Server/Controller.
 But always having feel of not having felexible and suitable rotaninal block for my use cases.
 Usually will create rotation seqenace by using basic blocks.
